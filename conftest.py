@@ -1,8 +1,7 @@
-# conftest.py
 import pytest
-from django.utils import timezone
-
 from datetime import datetime, timedelta
+
+from django.utils import timezone
 
 from yanews import settings
 from news.models import Comment, News
@@ -46,14 +45,13 @@ def add_many_comments(author, news):
 
 
 @pytest.fixture
-# Используем встроенную фикстуру для модели пользователей django_user_model.
 def author(django_user_model):
     return django_user_model.objects.create(username='Автор')
 
 
 @pytest.fixture
-def author_client(author, client):  # Вызываем фикстуру автора и клиента.
-    client.force_login(author)  # Логиним автора в клиенте.
+def author_client(author, client):
+    client.force_login(author)
     return client
 
 
@@ -68,10 +66,7 @@ def add_comment(author, news):
 
 
 @pytest.fixture
-# Фикстура запрашивает другую фикстуру создания заметки.
 def comment_id(add_comment):
-    # И возвращает кортеж, который содержит slug заметки.
-    # На то, что это кортеж, указывает запятая в конце выражения.
     return add_comment.id,
 
 
