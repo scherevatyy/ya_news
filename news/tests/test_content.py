@@ -1,5 +1,4 @@
 import pytest
-
 from django.conf import settings
 from django.urls import reverse
 
@@ -28,7 +27,7 @@ def test_comments_order(add_many_comments, news_id, author_client):
     response = author_client.get(url)
     news = response.context['news']
     all_comments = news.comment_set.all()
-    assert all_comments[0].created != all_comments[1].created
+    assert all_comments[0].created < all_comments[1].created
 
 
 @pytest.mark.parametrize(
